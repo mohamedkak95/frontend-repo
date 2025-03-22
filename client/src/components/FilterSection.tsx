@@ -1,4 +1,4 @@
-import { FaBroadcastTower, FaThLarge, FaList, FaChevronDown, FaSignal } from "react-icons/fa";
+import { FaBroadcastTower, FaThLarge, FaList, FaChevronDown, FaSignal, FaWifi } from "react-icons/fa";
 import { SiVodafone } from "react-icons/si";
 import { FilterOptions, OfferType, PriceRange, SortOption, ViewMode } from "@/types";
 
@@ -29,7 +29,7 @@ const FilterSection = ({
     { id: "vodafone", name: "فودافون", icon: <SiVodafone className="text-red-600" /> },
     { id: "orange", name: "أورانج", icon: <FaBroadcastTower className="text-orange-500" /> },
     { id: "etisalat", name: "اتصالات", icon: <FaSignal className="text-green-600" /> },
-    { id: "we", name: "وي", icon: <FaBroadcastTower className="text-purple-600" /> },
+    { id: "we", name: "وي", icon: <FaWifi className="text-purple-600" /> },
   ];
 
   return (
