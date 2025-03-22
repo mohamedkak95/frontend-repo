@@ -6,7 +6,7 @@ import OfferCard from "@/components/OfferCard";
 import Pagination from "@/components/Pagination";
 import Footer from "@/components/Footer";
 import OfferDetailsModal from "@/components/OfferDetailsModal";
-import { FilterOptions, Offer, ViewMode, ExtendedOffer } from "@/types";
+import { FilterOptions, Offer, ViewMode, ExtendedOffer, Package, PackageResponse } from "@/types";
 import { useToast } from "@/hooks/use-toast";
 
 const Home = () => {
@@ -23,21 +23,37 @@ const Home = () => {
   });
 
   const {
-    data: offers,
+    data: packagesData,
     isLoading,
     isError,
     refetch,
-  } = useQuery({
-    queryKey: ["/api/offers", filters],
+  } = useQuery<PackageResponse>({
+    queryKey: ["/api/packages", filters, currentPage],
+    queryFn: async () => {
+      const provider = filters.company !== 'all' ? filters.company : undefined;
+      const type = filters.offerType !== 'all' ? filters.offerType : undefined;
+      const priceRange = filters.priceRange !== 'all' ? filters.priceRange : undefined;
+      const sortBy = filters.sortBy;
+      
+      const queryParams = new URLSearchParams();
+      if (currentPage) queryParams.append('page', currentPage.toString());
+      if (provider) queryParams.append('provider', provider);
+      if (type) queryParams.append('type', type);
+      if (priceRange) queryParams.append('priceRange', priceRange);
+      if (sortBy) queryParams.append('sortBy', sortBy);
+      if (filters.searchQuery) queryParams.append('search', filters.searchQuery);
+      
+      const response = await fetch(`/api/packages?${queryParams.toString()}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch packages');
+      }
+      return response.json();
+    },
     refetchOnWindowFocus: false,
   });
 
-  const itemsPerPage = 6;
-  const totalPages = offers ? Math.ceil(offers.length / itemsPerPage) : 0;
-
-  const paginatedOffers = offers
-    ? offers.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-    : [];
+  const packages = packagesData?.packages || [];
+  const totalPages = packagesData?.totalPages || 0;
 
   useEffect(() => {
     setCurrentPage(1);
@@ -137,11 +153,11 @@ const Home = () => {
         )}
 
         {/* Results Header */}
-        {!isLoading && !isError && offers && (
+        {!isLoading && !isError && packagesData && (
           <>
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-neutral-900">
-                <span>{offers.length}</span> عرض متاح
+                <span>{packagesData.total}</span> عرض متاح
               </h2>
               <div className="text-neutral-700">
                 <span>ترتيب حسب:</span>
@@ -158,7 +174,7 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Offers Grid/List */}
+            {/* Packages Grid/List */}
             <div
               className={`grid gap-6 ${
                 viewMode === "grid"
@@ -166,12 +182,55 @@ const Home = () => {
                   : "grid-cols-1"
               }`}
             >
-              {paginatedOffers.map((offer) => (
-                <OfferCard
-                  key={offer.id}
-                  offer={offer}
-                  onShowDetails={() => handleShowOfferDetails(offer.id)}
-                />
+              {packages.map((pkg) => (
+                <div key={pkg._id} className="bg-white rounded-lg shadow-md overflow-hidden border border-neutral-200 hover:shadow-lg transition-shadow duration-200">
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-lg font-bold text-neutral-900">{pkg.name}</h3>
+                      <div className="flex space-x-2">
+                        {pkg.isPopular && (
+                          <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-0.5 rounded-full">شائع</span>
+                        )}
+                        {pkg.isNew && (
+                          <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">جديد</span>
+                        )}
+                        {pkg.isSpecial && (
+                          <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full">خاص</span>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center mb-2">
+                      <span className="text-gray-600 ml-1">المزود:</span>
+                      <span className="font-medium">{pkg.provider}</span>
+                    </div>
+                    
+                    <div className="text-2xl font-bold text-primary mb-2">
+                      {pkg.price} جنيه
+                    </div>
+                    
+                    <div className="text-sm text-gray-500 mb-3">
+                      صالح لمدة {pkg.validity}
+                    </div>
+                    
+                    <p className="text-neutral-700 mb-4 line-clamp-2">{pkg.description}</p>
+                    
+                    <div className="mt-auto">
+                      <button
+                        className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-90 transition-colors"
+                        onClick={() => {
+                          // TODO: Replace with proper package details handler
+                          toast({
+                            title: "معلومات الباقة",
+                            description: `تم اختيار باقة ${pkg.name}`,
+                          });
+                        }}
+                      >
+                        عرض التفاصيل
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
 

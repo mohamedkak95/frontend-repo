@@ -65,3 +65,28 @@ export interface FilterOptions {
   sortBy: SortOption;
   searchQuery: string;
 }
+
+export interface Package {
+  _id: string;
+  id: number;
+  name: string;
+  provider: string;
+  type: string;
+  price: number;
+  description: string;
+  features: Record<string, string>;
+  validity: string;
+  imageUrl: string;
+  isPopular: boolean;
+  isNew: boolean;
+  isSpecial: boolean;
+  howToSubscribe: string;
+  terms: string;
+}
+
+export interface PackageResponse {
+  total: number;
+  page: number;
+  totalPages: number;
+  packages: Package[];
+}

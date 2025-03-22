@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { insertOfferSchema, insertCompanySchema, insertFeatureSchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
+import axios from "axios";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get all offers with optional filtering
@@ -169,6 +170,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       console.error("Error creating feature:", error);
       res.status(500).json({ message: "Failed to create feature" });
+    }
+  });
+
+  // Get packages from external API
+  app.get("/api/packages", async (req: Request, res: Response) => {
+    try {
+      const { page = 1, provider, type, priceRange, sortBy } = req.query;
+      
+      // Forward request to the external API
+      const response = await axios.get("http://localhost:5000/api/packages", {
+        params: {
+          page, 
+          provider, 
+          type,
+          priceRange,
+          sortBy
+        }
+      });
+      
+      res.json(response.data);
+    } catch (error) {
+      console.error("Error fetching packages:", error);
+      res.status(500).json({ message: "Failed to fetch packages" });
+    }
+  });
+  
+  // Get a specific package by ID
+  app.get("/api/packages/:id", async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      
+      // Forward request to the external API
+      const response = await axios.get(`http://localhost:5000/api/packages/${id}`);
+      
+      res.json(response.data);
+    } catch (error) {
+      console.error("Error fetching package details:", error);
+      res.status(500).json({ message: "Failed to fetch package details" });
     }
   });
 
