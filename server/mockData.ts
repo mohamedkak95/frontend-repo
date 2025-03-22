@@ -1,23 +1,23 @@
 import { Package, PackageResponse } from "../shared/schema";
 
-// Mock data for Egyptian telecom packages
+// Mock data for Egyptian telecom packages - based on user's provided data format
 const mockPackages: Package[] = [
   {
-    _id: "1",
+    _id: "67de5050fedc61f0b5b5ce8f",
     id: 1,
     name: "باقة فودافون فليكس 30",
-    provider: "فودافون",
-    type: "فليكس",
+    provider: "vodafone",
+    type: "mobile",
     price: 30,
     description: "استمتع بباقة فودافون فليكس 30 واحصل على 1000 وحدة فليكس تقدر تستخدمها في المكالمات أو الإنترنت أو الرسائل",
     features: {
-      "internet": "تصفح بسرعة 4G",
-      "minutes": "دقائق لكل الشبكات",
-      "validity": "الباقة صالحة لمدة 30 يوم",
-      "bonus": "احصل على رصيد مضاعف عند التجديد"
+      "الإنترنت": "تصفح بسرعة 4G",
+      "المكالمات": "دقائق لكل الشبكات",
+      "الرسائل": "رسائل لكل الشبكات",
+      "المميزات": "احصل على رصيد مضاعف عند التجديد"
     },
     validity: "30 يوم",
-    imageUrl: "https://via.placeholder.com/300/FF3A2D/FFFFFF?text=Vodafone",
+    imageUrl: "/images/vodafone-logo.png",
     isPopular: true,
     isNew: false,
     isSpecial: false,
@@ -25,21 +25,21 @@ const mockPackages: Package[] = [
     terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة. الباقة متاحة لعملاء الفاتورة والكارت."
   },
   {
-    _id: "2",
+    _id: "67de5051fedc61f0b5b5ce90",
     id: 2,
     name: "باقة اورنج جو 100",
-    provider: "اورنج",
-    type: "جو",
+    provider: "orange",
+    type: "mobile",
     price: 100,
     description: "باقة اورنج جو 100 توفر لك 10 جيجابايت انترنت و200 دقيقة لكل الشبكات ورسائل غير محدودة",
     features: {
-      "internet": "10 جيجابايت انترنت",
-      "minutes": "200 دقيقة لكل الشبكات",
-      "sms": "رسائل غير محدودة",
-      "streaming": "استمتع بمشاهدة الفيديوهات بدون عد ميجابايت على يوتيوب و واتش ات"
+      "الإنترنت": "10 جيجابايت انترنت",
+      "المكالمات": "200 دقيقة لكل الشبكات",
+      "الرسائل": "رسائل غير محدودة",
+      "الترفيه": "استمتع بمشاهدة الفيديوهات بدون عد ميجابايت على يوتيوب و واتش ات"
     },
     validity: "30 يوم",
-    imageUrl: "https://via.placeholder.com/300/FF7600/FFFFFF?text=Orange",
+    imageUrl: "/images/orange-logo.png",
     isPopular: true,
     isNew: true,
     isSpecial: false,
@@ -47,21 +47,21 @@ const mockPackages: Package[] = [
     terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة. بعد استهلاك الباقة، سيتم تطبيق التعريفة العادية."
   },
   {
-    _id: "3",
+    _id: "67de5052fedc61f0b5b5ce91",
     id: 3,
     name: "باقة اتصالات سوبر 150",
-    provider: "اتصالات",
-    type: "سوبر",
+    provider: "etisalat",
+    type: "mobile",
     price: 150,
     description: "احصل على 15 جيجابايت انترنت و300 دقيقة و300 رسالة مع باقة اتصالات سوبر 150",
     features: {
-      "internet": "15 جيجابايت انترنت بسرعة 4G",
-      "minutes": "300 دقيقة لكل الشبكات",
-      "sms": "300 رسالة",
-      "social": "استخدام لا محدود لمواقع التواصل الاجتماعي"
+      "الإنترنت": "15 جيجابايت انترنت بسرعة 4G",
+      "المكالمات": "300 دقيقة لكل الشبكات",
+      "الرسائل": "300 رسالة",
+      "التواصل الاجتماعي": "استخدام لا محدود لمواقع التواصل الاجتماعي"
     },
     validity: "30 يوم",
-    imageUrl: "https://via.placeholder.com/300/009639/FFFFFF?text=Etisalat",
+    imageUrl: "/images/etisalat-logo.png",
     isPopular: false,
     isNew: false,
     isSpecial: true,
@@ -69,21 +69,21 @@ const mockPackages: Package[] = [
     terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة. الاستخدام اللامحدود خاضع لسياسة الاستخدام العادل."
   },
   {
-    _id: "4",
+    _id: "67de5053fedc61f0b5b5ce92",
     id: 4,
     name: "باقة وي انترنت 200",
-    provider: "وي",
-    type: "انترنت",
+    provider: "we",
+    type: "internet",
     price: 200,
     description: "باقة انترنت غير محدودة من وي بسرعات فائقة تصل إلى 4G+. استمتع بتصفح سريع وتحميل ومشاهدة بدون انقطاع",
     features: {
-      "internet": "انترنت غير محدود",
-      "speed": "سرعات تصل إلى 4G+",
-      "hotspot": "خاصية الربط متاحة",
-      "bonus": "اشتراك مجاني في خدمة واتش ات"
+      "الإنترنت": "انترنت غير محدود",
+      "السرعة": "سرعات تصل إلى 4G+",
+      "الربط": "خاصية الربط متاحة",
+      "المزايا": "اشتراك مجاني في خدمة واتش ات"
     },
     validity: "30 يوم",
-    imageUrl: "https://via.placeholder.com/300/582C83/FFFFFF?text=WE",
+    imageUrl: "/images/we-logo.png",
     isPopular: false,
     isNew: true,
     isSpecial: true,
@@ -91,21 +91,21 @@ const mockPackages: Package[] = [
     terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة. خدمة الانترنت غير المحدود خاضعة لسياسة الاستخدام العادل."
   },
   {
-    _id: "5",
+    _id: "67de5054fedc61f0b5b5ce93",
     id: 5,
     name: "باقة فودافون الشباب 60",
-    provider: "فودافون",
-    type: "الشباب",
+    provider: "vodafone",
+    type: "mobile",
     price: 60,
     description: "باقة مخصصة للشباب من فودافون. 5 جيجابايت انترنت و500 دقيقة لشبكة فودافون و100 دقيقة لباقي الشبكات",
     features: {
-      "internet": "5 جيجابايت انترنت",
-      "minutes": "500 دقيقة لشبكة فودافون",
-      "other_minutes": "100 دقيقة لباقي الشبكات",
-      "social": "استخدام مجاني لمواقع التواصل الاجتماعي"
+      "الإنترنت": "5 جيجابايت انترنت",
+      "المكالمات فودافون": "500 دقيقة لشبكة فودافون",
+      "المكالمات الأخرى": "100 دقيقة لباقي الشبكات",
+      "التواصل الاجتماعي": "استخدام مجاني لمواقع التواصل الاجتماعي"
     },
     validity: "30 يوم",
-    imageUrl: "https://via.placeholder.com/300/FF3A2D/FFFFFF?text=Vodafone",
+    imageUrl: "/images/vodafone-logo.png",
     isPopular: true,
     isNew: false,
     isSpecial: false,
@@ -113,26 +113,115 @@ const mockPackages: Package[] = [
     terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة. الباقة متاحة للعملاء من سن 18 إلى 25 سنة."
   },
   {
-    _id: "6",
+    _id: "67de5055fedc61f0b5b5ce94",
     id: 6,
     name: "باقة اورنج إكس 180",
-    provider: "اورنج",
-    type: "إكس",
+    provider: "orange",
+    type: "bundle",
     price: 180,
     description: "استمتع بـ 20 جيجابايت انترنت و500 دقيقة وباقة ترفيهية مميزة مع باقة اورنج إكس الجديدة",
     features: {
-      "internet": "20 جيجابايت انترنت",
-      "minutes": "500 دقيقة لكل الشبكات",
-      "entertainment": "اشتراك مجاني في خدمات بث الفيديو والموسيقى",
-      "rollover": "امكانية ترحيل الميجابايت غير المستخدمة للشهر التالي"
+      "الإنترنت": "20 جيجابايت انترنت",
+      "المكالمات": "500 دقيقة لكل الشبكات",
+      "الترفيه": "اشتراك مجاني في خدمات بث الفيديو والموسيقى",
+      "الترحيل": "امكانية ترحيل الميجابايت غير المستخدمة للشهر التالي"
     },
     validity: "30 يوم",
-    imageUrl: "https://via.placeholder.com/300/FF7600/FFFFFF?text=Orange",
+    imageUrl: "/images/orange-logo.png",
     isPopular: false,
     isNew: true,
     isSpecial: false,
     howToSubscribe: "اتصل بـ *3535# أو من خلال تطبيق اورنج",
     terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة. الترحيل متاح فقط عند تجديد نفس الباقة."
+  },
+  {
+    _id: "67de5056fedc61f0b5b5ce95",
+    id: 7,
+    name: "باقة اتصالات جو 75",
+    provider: "etisalat",
+    type: "mobile",
+    price: 75,
+    description: "باقة اتصالات جو 75 توفر لك 7 جيجابايت انترنت و150 دقيقة لكل الشبكات و150 رسالة",
+    features: {
+      "الإنترنت": "7 جيجابايت انترنت",
+      "المكالمات": "150 دقيقة لكل الشبكات",
+      "الرسائل": "150 رسالة",
+      "المزايا": "تطبيقات التواصل الاجتماعي غير محدودة"
+    },
+    validity: "30 يوم",
+    imageUrl: "/images/etisalat-logo.png",
+    isPopular: true,
+    isNew: false,
+    isSpecial: false,
+    howToSubscribe: "اتصل بـ *688# أو من خلال تطبيق اتصالات",
+    terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة."
+  },
+  {
+    _id: "67de5057fedc61f0b5b5ce96",
+    id: 8,
+    name: "باقة وي الأساسية 110",
+    provider: "we",
+    type: "mobile",
+    price: 110,
+    description: "باقة وي الأساسية توفر لك 15 جيجابايت انترنت و400 دقيقة لكل الشبكات",
+    features: {
+      "الإنترنت": "15 جيجابايت انترنت",
+      "المكالمات": "400 دقيقة لكل الشبكات",
+      "الرسائل": "100 رسالة",
+      "المزايا الإضافية": "دقائق وانترنت إضافي بنصف السعر"
+    },
+    validity: "30 يوم",
+    imageUrl: "/images/we-logo.png",
+    isPopular: true,
+    isNew: false,
+    isSpecial: false,
+    howToSubscribe: "اتصل بـ *111# أو من خلال تطبيق وي",
+    terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة."
+  },
+  {
+    _id: "67de5058fedc61f0b5b5ce97",
+    id: 9,
+    name: "باقة فودافون ريد 350",
+    provider: "vodafone",
+    type: "bundle",
+    price: 350,
+    description: "باقة فودافون ريد الشاملة مع 40 جيجابايت انترنت ومكالمات لا محدودة لشبكة فودافون و1000 دقيقة للشبكات الأخرى",
+    features: {
+      "الإنترنت": "40 جيجابايت انترنت",
+      "المكالمات فودافون": "غير محدودة",
+      "المكالمات الأخرى": "1000 دقيقة",
+      "الرسائل": "رسائل غير محدودة",
+      "المزايا": "خدمة فودافون TV وڤودافون ميوزيك مجاناً"
+    },
+    validity: "30 يوم",
+    imageUrl: "/images/vodafone-logo.png",
+    isPopular: false,
+    isNew: false,
+    isSpecial: true,
+    howToSubscribe: "من خلال زيارة أقرب فرع فودافون أو من خلال تطبيق أنا فودافون",
+    terms: "تطبق الشروط والأحكام. الأسعار شاملة ضريبة القيمة المضافة. متاحة لعملاء الفاتورة فقط."
+  },
+  {
+    _id: "67de5059fedc61f0b5b5ce98",
+    id: 10,
+    name: "باقة وي ADSL منزلي 200",
+    provider: "we",
+    type: "landline",
+    price: 200,
+    description: "خدمة انترنت منزلي ADSL من وي بسرعة 30 ميجابت مع استهلاك شهري 140 جيجا",
+    features: {
+      "السرعة": "30 ميجابت في الثانية",
+      "الاستهلاك": "140 جيجابايت شهرياً",
+      "التجاوز": "سرعة مخفضة بعد استهلاك الباقة",
+      "الخدمات الإضافية": "خدمات قيمة مضافة وتليفون أرضي"
+    },
+    validity: "30 يوم",
+    imageUrl: "/images/we-logo.png",
+    isPopular: false,
+    isNew: false,
+    isSpecial: true,
+    howToSubscribe: "من خلال زيارة أقرب فرع وي أو الاتصال بـ 19777",
+    terms: "تطبق الشروط والأحكام. التأسيس والتركيب يتطلب رسوم إضافية."
   }
 ];
 
