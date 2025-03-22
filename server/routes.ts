@@ -173,23 +173,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get packages from external API
+  // Get packages (using mock data for development)
   app.get("/api/packages", async (req: Request, res: Response) => {
     try {
-      const { page = 1, provider, type, priceRange, sortBy } = req.query;
+      // Get query parameters
+      const page = req.query.page ? parseInt(req.query.page as string) : 1;
+      const provider = req.query.provider as string | undefined;
+      const type = req.query.type as string | undefined;
+      const priceRange = req.query.priceRange as string | undefined;
+      const sortBy = req.query.sortBy as string | undefined;
+      const search = req.query.search as string | undefined;
       
-      // Forward request to the external API
-      const response = await axios.get("http://localhost:5000/api/packages", {
-        params: {
-          page, 
-          provider, 
-          type,
-          priceRange,
-          sortBy
-        }
+      // Import and use mock data
+      const { getPackages } = await import('./mockData');
+      
+      // Get filtered and paginated packages
+      const packagesResponse = getPackages({
+        page,
+        provider,
+        type,
+        priceRange,
+        sortBy,
+        search
       });
       
-      res.json(response.data);
+      // Add a small delay to simulate API call
+      setTimeout(() => {
+        res.json(packagesResponse);
+      }, 300);
     } catch (error) {
       console.error("Error fetching packages:", error);
       res.status(500).json({ message: "Failed to fetch packages" });
@@ -201,10 +212,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = req.params.id;
       
-      // Forward request to the external API
-      const response = await axios.get(`http://localhost:5000/api/packages/${id}`);
+      // Import and use mock data
+      const { getPackageById } = await import('./mockData');
       
-      res.json(response.data);
+      // Get package by ID
+      const packageData = getPackageById(id);
+      
+      if (!packageData) {
+        return res.status(404).json({ message: "Package not found" });
+      }
+      
+      // Add a small delay to simulate API call
+      setTimeout(() => {
+        res.json(packageData);
+      }, 200);
     } catch (error) {
       console.error("Error fetching package details:", error);
       res.status(500).json({ message: "Failed to fetch package details" });
