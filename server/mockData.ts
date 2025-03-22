@@ -17,7 +17,7 @@ const mockPackages: Package[] = [
       "المميزات": "احصل على رصيد مضاعف عند التجديد"
     },
     validity: "30 يوم",
-    imageUrl: "/images/vodafone-logo.png",
+    imageUrl: "/images/vodafone-logo.svg",
     isPopular: true,
     isNew: false,
     isSpecial: false,
@@ -39,7 +39,7 @@ const mockPackages: Package[] = [
       "الترفيه": "استمتع بمشاهدة الفيديوهات بدون عد ميجابايت على يوتيوب و واتش ات"
     },
     validity: "30 يوم",
-    imageUrl: "/images/orange-logo.png",
+    imageUrl: "/images/orange-logo.svg",
     isPopular: true,
     isNew: true,
     isSpecial: false,
@@ -61,7 +61,7 @@ const mockPackages: Package[] = [
       "التواصل الاجتماعي": "استخدام لا محدود لمواقع التواصل الاجتماعي"
     },
     validity: "30 يوم",
-    imageUrl: "/images/etisalat-logo.png",
+    imageUrl: "/images/etisalat-logo.svg",
     isPopular: false,
     isNew: false,
     isSpecial: true,
@@ -83,7 +83,7 @@ const mockPackages: Package[] = [
       "المزايا": "اشتراك مجاني في خدمة واتش ات"
     },
     validity: "30 يوم",
-    imageUrl: "/images/we-logo.png",
+    imageUrl: "/images/we-logo.svg",
     isPopular: false,
     isNew: true,
     isSpecial: true,
@@ -105,7 +105,7 @@ const mockPackages: Package[] = [
       "التواصل الاجتماعي": "استخدام مجاني لمواقع التواصل الاجتماعي"
     },
     validity: "30 يوم",
-    imageUrl: "/images/vodafone-logo.png",
+    imageUrl: "/images/vodafone-logo.svg",
     isPopular: true,
     isNew: false,
     isSpecial: false,
@@ -127,7 +127,7 @@ const mockPackages: Package[] = [
       "الترحيل": "امكانية ترحيل الميجابايت غير المستخدمة للشهر التالي"
     },
     validity: "30 يوم",
-    imageUrl: "/images/orange-logo.png",
+    imageUrl: "/images/orange-logo.svg",
     isPopular: false,
     isNew: true,
     isSpecial: false,
@@ -149,7 +149,7 @@ const mockPackages: Package[] = [
       "المزايا": "تطبيقات التواصل الاجتماعي غير محدودة"
     },
     validity: "30 يوم",
-    imageUrl: "/images/etisalat-logo.png",
+    imageUrl: "/images/etisalat-logo.svg",
     isPopular: true,
     isNew: false,
     isSpecial: false,
@@ -171,7 +171,7 @@ const mockPackages: Package[] = [
       "المزايا الإضافية": "دقائق وانترنت إضافي بنصف السعر"
     },
     validity: "30 يوم",
-    imageUrl: "/images/we-logo.png",
+    imageUrl: "/images/we-logo.svg",
     isPopular: true,
     isNew: false,
     isSpecial: false,
@@ -194,7 +194,7 @@ const mockPackages: Package[] = [
       "المزايا": "خدمة فودافون TV وڤودافون ميوزيك مجاناً"
     },
     validity: "30 يوم",
-    imageUrl: "/images/vodafone-logo.png",
+    imageUrl: "/images/vodafone-logo.svg",
     isPopular: false,
     isNew: false,
     isSpecial: true,
@@ -216,7 +216,7 @@ const mockPackages: Package[] = [
       "الخدمات الإضافية": "خدمات قيمة مضافة وتليفون أرضي"
     },
     validity: "30 يوم",
-    imageUrl: "/images/we-logo.png",
+    imageUrl: "/images/we-logo.svg",
     isPopular: false,
     isNew: false,
     isSpecial: true,
