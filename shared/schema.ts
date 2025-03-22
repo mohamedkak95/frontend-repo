@@ -102,3 +102,29 @@ export type InsertOffer = z.infer<typeof insertOfferSchema>;
 
 export type OfferFeature = typeof offerFeatures.$inferSelect;
 export type InsertOfferFeature = z.infer<typeof insertOfferFeatureSchema>;
+
+// Types for Egyptian telecom packages API
+export interface Package {
+  _id: string;
+  id: number;
+  name: string;
+  provider: string;
+  type: string;
+  price: number;
+  description: string;
+  features: Record<string, string>;
+  validity: string;
+  imageUrl: string;
+  isPopular: boolean;
+  isNew: boolean;
+  isSpecial: boolean;
+  howToSubscribe: string;
+  terms: string;
+}
+
+export interface PackageResponse {
+  total: number;
+  page: number;
+  totalPages: number;
+  packages: Package[];
+}

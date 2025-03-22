@@ -2,18 +2,17 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/Header";
 import FilterSection from "@/components/FilterSection";
-import OfferCard from "@/components/OfferCard";
 import Pagination from "@/components/Pagination";
 import Footer from "@/components/Footer";
-import OfferDetailsModal from "@/components/OfferDetailsModal";
-import { FilterOptions, Offer, ViewMode, ExtendedOffer, Package, PackageResponse } from "@/types";
+import PackageDetailsModal from "@/components/PackageDetailsModal";
+import { FilterOptions, ViewMode, Package, PackageResponse } from "@/types";
 import { useToast } from "@/hooks/use-toast";
 
 const Home = () => {
   const { toast } = useToast();
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedOffer, setSelectedOffer] = useState<ExtendedOffer | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
   const [filters, setFilters] = useState<FilterOptions>({
     company: "all",
     offerType: "all",
@@ -70,25 +69,25 @@ const Home = () => {
     setFilters((prev) => ({ ...prev, [filterType]: value }));
   };
 
-  const handleShowOfferDetails = async (offerId: number) => {
+  const handleShowPackageDetails = async (packageId: string) => {
     try {
-      const response = await fetch(`/api/offers/${offerId}`);
+      const response = await fetch(`/api/packages/${packageId}`);
       if (!response.ok) {
-        throw new Error("Failed to fetch offer details");
+        throw new Error("Failed to fetch package details");
       }
-      const offerDetails = await response.json();
-      setSelectedOffer(offerDetails);
+      const packageDetails = await response.json();
+      setSelectedPackage(packageDetails);
     } catch (error) {
       toast({
         title: "خطأ",
-        description: "حدث خطأ أثناء تحميل تفاصيل العرض",
+        description: "حدث خطأ أثناء تحميل تفاصيل الباقة",
         variant: "destructive",
       });
     }
   };
 
   const handleCloseModal = () => {
-    setSelectedOffer(null);
+    setSelectedPackage(null);
   };
 
   const handleRetry = () => {
@@ -218,13 +217,7 @@ const Home = () => {
                     <div className="mt-auto">
                       <button
                         className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-90 transition-colors"
-                        onClick={() => {
-                          // TODO: Replace with proper package details handler
-                          toast({
-                            title: "معلومات الباقة",
-                            description: `تم اختيار باقة ${pkg.name}`,
-                          });
-                        }}
+                        onClick={() => handleShowPackageDetails(pkg._id)}
                       >
                         عرض التفاصيل
                       </button>
@@ -248,8 +241,8 @@ const Home = () => {
 
       <Footer />
 
-      {selectedOffer && (
-        <OfferDetailsModal offer={selectedOffer} onClose={handleCloseModal} />
+      {selectedPackage && (
+        <PackageDetailsModal pkg={selectedPackage} onClose={handleCloseModal} />
       )}
     </div>
   );
