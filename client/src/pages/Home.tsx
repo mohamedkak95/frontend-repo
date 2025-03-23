@@ -37,7 +37,7 @@ const Home = () => {
     if (filters.sortBy) queryParams.append("sortBy", filters.sortBy);
     if (filters.searchQuery) queryParams.append("search", filters.searchQuery);
     
-    const response = await fetch(`http://localhost:5000/api/packages?${queryParams.toString()}`);
+    const response = await fetch(`https://backend-repo-production-e686.up.railway.app/api/packages?${queryParams.toString()}`);
     if (!response.ok) {
       throw new Error("Failed to fetch packages");
     }
@@ -67,7 +67,7 @@ const Home = () => {
 
   const handleShowPackageDetails = async (packageId: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/packages/${packageId}`);
+      const response = await fetch(`https://backend-repo-production-e686.up.railway.app/api/packages/${packageId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch package details");
       }

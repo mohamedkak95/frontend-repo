@@ -177,7 +177,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Get packages from external API
     app.get("/api/packages", async (req: Request, res: Response) => {
       try {
-        const apiUrl = "http://localhost:5000/api/packages";
+        const apiUrl = "https://backend-repo-production-e686.up.railway.app/api/packages";
         const response = await axios.get(apiUrl, { params: req.query });
         res.json(response.data);
       } catch (error) {
