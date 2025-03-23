@@ -174,38 +174,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get packages (using mock data for development)
-  app.get("/api/packages", async (req: Request, res: Response) => {
-    try {
-      // Get query parameters
-      const page = req.query.page ? parseInt(req.query.page as string) : 1;
-      const provider = req.query.provider as string | undefined;
-      const type = req.query.type as string | undefined;
-      const priceRange = req.query.priceRange as string | undefined;
-      const sortBy = req.query.sortBy as string | undefined;
-      const search = req.query.search as string | undefined;
-      
-      // Import and use mock data
-      const { getPackages } = await import('./mockData');
-      
-      // Get filtered and paginated packages
-      const packagesResponse = getPackages({
-        page,
-        provider,
-        type,
-        priceRange,
-        sortBy,
-        search
-      });
-      
-      // Add a small delay to simulate API call
-      setTimeout(() => {
-        res.json(packagesResponse);
-      }, 300);
-    } catch (error) {
-      console.error("Error fetching packages:", error);
-      res.status(500).json({ message: "Failed to fetch packages" });
-    }
-  });
+    // Get packages from external API
+    app.get("/api/packages", async (req: Request, res: Response) => {
+      try {
+        const apiUrl = "http://localhost:5000/api/packages";
+        const response = await axios.get(apiUrl, { params: req.query });
+        res.json(response.data);
+      } catch (error) {
+        console.error("Error fetching packages from external API:", error);
+        res.status(500).json({ message: "Failed to fetch packages" });
+      }
+    });
+  
   
   // Get a specific package by ID
   app.get("/api/packages/:id", async (req: Request, res: Response) => {

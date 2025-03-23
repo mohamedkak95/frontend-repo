@@ -61,9 +61,7 @@ const PackageDetailsModal = ({ pkg, onClose }: PackageDetailsModalProps) => {
               }}
             />
             <div className="mt-4 bg-white rounded-lg shadow p-4 border border-neutral-200">
-              <div className="text-3xl font-bold text-primary text-center">
-                {pkg.price} جنيه
-              </div>
+              
               <div className="text-sm text-center text-gray-500 mt-1">
                 صالح لمدة {pkg.validity}
               </div>

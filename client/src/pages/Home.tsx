@@ -22,34 +22,30 @@ const Home = () => {
   });
 
   const {
-    data: packagesData,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery<PackageResponse>({
-    queryKey: ["/api/packages", filters, currentPage],
-    queryFn: async () => {
-      const provider = filters.company !== 'all' ? filters.company : undefined;
-      const type = filters.offerType !== 'all' ? filters.offerType : undefined;
-      const priceRange = filters.priceRange !== 'all' ? filters.priceRange : undefined;
-      const sortBy = filters.sortBy;
-      
-      const queryParams = new URLSearchParams();
-      if (currentPage) queryParams.append('page', currentPage.toString());
-      if (provider) queryParams.append('provider', provider);
-      if (type) queryParams.append('type', type);
-      if (priceRange) queryParams.append('priceRange', priceRange);
-      if (sortBy) queryParams.append('sortBy', sortBy);
-      if (filters.searchQuery) queryParams.append('search', filters.searchQuery);
-      
-      const response = await fetch(`/api/packages?${queryParams.toString()}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch packages');
-      }
-      return response.json();
-    },
-    refetchOnWindowFocus: false,
-  });
+  data: packagesData,
+  isLoading,
+  isError,
+  refetch,
+} = useQuery<PackageResponse>({
+  queryKey: ["/api/packages", filters, currentPage],
+  queryFn: async () => {
+    const queryParams = new URLSearchParams();
+    if (currentPage) queryParams.append("page", currentPage.toString());
+    if (filters.company !== "all") queryParams.append("provider", filters.company);
+    if (filters.offerType !== "all") queryParams.append("type", filters.offerType);
+    if (filters.priceRange !== "all") queryParams.append("priceRange", filters.priceRange);
+    if (filters.sortBy) queryParams.append("sortBy", filters.sortBy);
+    if (filters.searchQuery) queryParams.append("search", filters.searchQuery);
+    
+    const response = await fetch(`http://localhost:5000/api/packages?${queryParams.toString()}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch packages");
+    }
+    return response.json();
+  },
+  refetchOnWindowFocus: false,
+});
+
 
   const packages = packagesData?.packages || [];
   const totalPages = packagesData?.totalPages || 0;
@@ -71,7 +67,7 @@ const Home = () => {
 
   const handleShowPackageDetails = async (packageId: string) => {
     try {
-      const response = await fetch(`/api/packages/${packageId}`);
+      const response = await fetch(`http://localhost:5000/api/packages/${packageId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch package details");
       }
@@ -204,9 +200,7 @@ const Home = () => {
                       <span className="font-medium">{pkg.provider}</span>
                     </div>
                     
-                    <div className="text-2xl font-bold text-primary mb-2">
-                      {pkg.price} جنيه
-                    </div>
+                  
                     
                     <div className="text-sm text-gray-500 mb-3">
                       صالح لمدة {pkg.validity}

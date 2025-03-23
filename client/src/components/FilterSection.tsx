@@ -33,7 +33,7 @@ const FilterSection = ({
   ];
 
   return (
-    <section className="bg-white py-4 shadow-sm mb-6 sticky top-16 z-40">
+    <section className="bg-white py-4 mb-6 sticky top-16 z-40 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg backdrop-blur-sm bg-white/90">
       <div className="container mx-auto px-4">
         {/* Company Tabs */}
         <div className="mb-6 overflow-x-auto">

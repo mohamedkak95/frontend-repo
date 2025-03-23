@@ -29,8 +29,11 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    const res = await fetch(`http://localhost:5000/api/packages${queryKey[0]}`, {
       credentials: "include",
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {

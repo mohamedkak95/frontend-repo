@@ -75,7 +75,15 @@ const OfferCard = ({ offer, onShowDetails }: OfferCardProps) => {
         <div className={`h-32 ${getBgGradient()} flex items-center justify-center`}>
           <div className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md">
             {offer.company.logo ? (
-              <img src={offer.company.logo} alt={offer.company.nameAr} className="w-8 h-8" />
+                            <img 
+                            src={offer.company.logo} 
+                            alt={offer.company.nameAr} 
+                            className="w-8 h-8 object-contain" 
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = '/images/fallback-logo.svg';
+                            }}
+                          />
             ) : (
               <div className="w-8 h-8 flex items-center justify-center">
                 <FaWifi className={getIconColor()} size={20} />
